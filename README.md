@@ -1,0 +1,2 @@
+# simplegtd
+django practice work
