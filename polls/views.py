@@ -64,3 +64,22 @@ def showimage(request):
     # Send buffer in a http response the the browser with the mime type image/png set
     return HttpResponse(buffer.getvalue(), mimetype="image/png")
 
+def logaqi(request):
+
+    query_string = []
+    for i in request.GET:
+        query_string.append(request.GET[i])
+    
+    temp = float(request.GET['temp'])
+    humid = float(request.GET['humid'])
+    aqi01 = float(request.GET['aqi01'])
+    aqi25 = float(request.GET['aqi25'])
+    aqi10 = float(request.GET['aqi10'])
+    voc = float(request.GET['voc'])
+    co2 = float(request.GET['co2'])
+
+    return HttpResponse("%s Temp %f / Humidity %f / AQI 1.0 %f / AQI 2_5 %f / AQI 10 %f / VOC %f / CO2 %f" % ( query_string, temp, humid, aqi01, aqi25, aqi10, voc, co2) )
+
+    
+    
+    
