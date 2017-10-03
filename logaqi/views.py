@@ -2,6 +2,8 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from django.views import generic as djangogeneric
+from .models import Room, Aqidata
+from django.utils import timezone
 
 from matplotlib import pylab 
 from pylab import *
@@ -43,5 +45,9 @@ def aqiapi(request):
     aqi25 = float(request.GET['aqi25'])
     aqi10 = float(request.GET['aqi10'])
     voc = float(request.GET['voc'])
+
+    room = Room.objects.get(pk=1)
+    room.aqidata_set.create(aqi01=aqi01,aqi25=aqi25,aqi10=aqi10,voc=voc,log_date=timezone.now())
+    room.save()
 
     return HttpResponse("%s / AQI 1.0 %f / AQI 2_5 %f / AQI 10 %f / VOC %f /" % ( query_string, aqi01, aqi25, aqi10, voc ) )
